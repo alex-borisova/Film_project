@@ -1,17 +1,17 @@
+'use strict';
+
 let personalMovieDB = {
-    count: +'',
+    count: 0,
     movies: {},
     actors: {},
     genres: [],
     privat: false,
     start: function() {
-        let numberOfFilms = +prompt("Сколько фильмов вы уже посмотрели?", "");
+        personalMovieDB.count = +prompt("Сколько фильмов вы уже посмотрели?", "");
     
-        while (numberOfFilms == null || numberOfFilms == '' || isNaN(numberOfFilms)) {
-            numberOfFilms = +prompt("Сколько фильмов вы уже посмотрели?", "");
+        while (personalMovieDB.count == null || personalMovieDB.count == '' || isNaN(personalMovieDB.count)) {
+            personalMovieDB.count = +prompt("Сколько фильмов вы уже посмотрели?", "");
         }
-
-        personalMovieDB.count = numberOfFilms;  
     },
     rememberMyFilms: function () {
         for (let i = 0; i < 2; i++) {
@@ -36,23 +36,10 @@ let personalMovieDB = {
             alert ('Произошла ошибка');
         }
     },
-    showMyDB: function() {
+    showMyDB: function() { //был аттрибут hidden 
         if (!personalMovieDB.privat) {
             console.log(personalMovieDB);
         }
-    },
-    writeYourGenres: function() {
-        for (let i = 0; i < 3; i++) {
-            personalMovieDB.genres[i] = prompt(`Ваш любимый жанр под номером ${i+1}`, "");
-
-            if (personalMovieDB.genres[i] == null || personalMovieDB.genres[i] == '') {
-                i--;
-            }
-        }
-
-        personalMovieDB.genres.forEach(function(item, i){
-            console.log(`Любимый жанр ${i+1} - это ${item}`);
-        });
     },
     toggleVisibleMyDB: function() {
         if (personalMovieDB.privat == true) {
@@ -60,5 +47,20 @@ let personalMovieDB = {
         } else {
             personalMovieDB.privat = true;
         }
+    },
+    writeYourGenres: function() {
+        for (let i = 0; i < 3; i++) {
+            let genre = prompt(`Ваш любимый жанр под номером ${i + 1}`, "");
+
+            if (genre == null || genre == '') {
+                i--;
+            } else {
+                personalMovieDB.genres[i] = genre;
+            }
+        }
+
+        personalMovieDB.genres.forEach((item, i) => {
+            console.log(`Любимый жанр ${i + 1} - это ${item}`);
+        });
     }
 };
